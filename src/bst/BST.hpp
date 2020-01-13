@@ -44,8 +44,6 @@ class BST {
     /** TODO */
     bool insert(const Data& item) {
         BSTNode<Data>* item_ptr = new BSTNode<Data>(item);
-        // BSTNode<Data>* item_ptr;
-        // item_ptr->setData(item);
 
         // if there is no root
         if (root == 0) {
@@ -53,22 +51,37 @@ class BST {
             return true;
         }
         BSTNode<Data>* ptr = root;
-        // BSTNode<Data>* next_ptr = nullptr;
+        BSTNode<Data>* next_ptr = nullptr;
+        int count = 0;
         while (ptr != nullptr) {
+            count++;
+            cout << "run #" << count << "ptr's data value " << ptr->getData()
+                 << endl;
+            cout << "item value " << item << endl;
+            next_ptr = ptr;
             // if item is smaller than current node's data
             if (item < ptr->getData()) {
+                cout << "item smaller on run " << count << endl;
                 ptr = ptr->left;
             }
             // if item is larger than current node's data
             else if (!(item < ptr->getData())) {
+                cout << "item larger on run " << count << endl;
                 ptr = ptr->right;
             }
             // if data values are equal
             else {
+                cout << "shd do the false" << endl;
                 return false;
             }
         }
-        ptr = item_ptr;
+        if (item < next_ptr->getData()) {
+            next_ptr->left = item_ptr;
+        } else if (!(item < next_ptr->getData())) {
+            next_ptr->right = item_ptr;
+        } else {
+            return false;
+        }
         return true;
     }
 
