@@ -59,3 +59,23 @@ TEST_F(SmallBSTFixture, SMALL_INSERT_DUPLICATES_TEST) {
 }
 
 // TODO: add more BST tests here
+
+TEST_F(SmallBSTFixture, SMALL_INSERT_TEST) {
+    // assert passed insertion
+    ASSERT_TRUE(bst.insert(5));
+}
+
+TEST_F(SmallBSTFixture, SMALL_INSERT_AND_DUPLICATE_TEST) {
+    // assert passed insertion
+    ASSERT_TRUE(bst.insert(2));
+    // assert failed duplicate insertion
+    ASSERT_FALSE(bst.insert(2));
+}
+
+TEST_F(SmallBSTFixture, SMALL_INSERT_DUPLICATES_TEST2) {
+    // assert failed duplicate insertion
+    ASSERT_FALSE(bst.insert(-33));
+}
+
+// Testing Find
+TEST_F(SmallBSTFixture, SMALL_FIND_TEST) { ASSERT_EQ(-33, *bst.find(-33)); }

@@ -54,7 +54,7 @@ class BST {
         while (ptr != nullptr) {
             prev_ptr = ptr;
             // checking if the data is equal to items value
-            if (!(item < ptr->getData() && !(item < ptr->getData()))) {
+            if (!(item < ptr->getData()) && !(ptr->getData() < item)) {
                 return false;
             }
             // if item is smaller than current node's data
@@ -66,7 +66,7 @@ class BST {
                 ptr = ptr->right;
             }
         }
-        if (item < prev_ptr->getData() && !(item < prev_ptr->getData())) {
+        if (!(item < prev_ptr->getData()) && !(prev_ptr->getData() < item)) {
             return false;
         }
         if (item < prev_ptr->getData()) {
@@ -83,7 +83,7 @@ class BST {
         while (find_ptr != nullptr) {
             // checking if the data is equal to items value
             if (!(item < find_ptr->getData() &&
-                  !(item < find_ptr->getData()))) {
+                  !(find_ptr->getData() < item))) {
                 break;
             }
             // if item is smaller than current node's data
