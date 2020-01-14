@@ -44,44 +44,38 @@ class BST {
     /** TODO */
     bool insert(const Data& item) {
         BSTNode<Data>* item_ptr = new BSTNode<Data>(item);
-        cout << "item value: " << item_ptr->getData() << endl;
-        cout << "root: " << root->getData() << endl;
+
         // if there is no root
-        if (root == 0) {
-            cout << "no root" << endl;
+        if (root == 0 || root == nullptr) {
             root = item_ptr;
             return true;
         }
         BSTNode<Data>* ptr = root;
         BSTNode<Data>* next_ptr = nullptr;
-        int count = 0;
+
         while (ptr != nullptr) {
+            next_ptr = ptr;
+
             // checking if the data is equal to items value
-            if (item < ptr->getData() && !(item < ptr->getData())) {
-                cout << "shd do the false" << endl;
+            if (!(item < ptr->getData() && !(item < ptr->getData()))) {
                 return false;
             }
-            count++;
-            cout << "run #" << count << "ptr's data value " << ptr->getData()
-                 << endl;
-            next_ptr = ptr;
             // if item is smaller than current node's data
             if (item < ptr->getData()) {
-                cout << "item smaller on run " << count << endl;
                 ptr = ptr->left;
             }
             // if item is larger than current node's data
-            else if (!(item < ptr->getData())) {
-                cout << "item larger on run " << count << endl;
+            else {
                 ptr = ptr->right;
             }
         }
+        if (item < next_ptr->getData() && !(item < next_ptr->getData())) {
+            return false;
+        }
         if (item < next_ptr->getData()) {
             next_ptr->left = item_ptr;
-        } else if (!(item < next_ptr->getData())) {
-            next_ptr->right = item_ptr;
         } else {
-            return false;
+            next_ptr->right = item_ptr;
         }
         return true;
     }
