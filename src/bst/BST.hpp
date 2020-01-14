@@ -47,10 +47,14 @@ class BST {
         // if there is no root
         if (root == 0 || root == nullptr) {
             root = item_ptr;
+            isize = isize + 1;
+            iheight = iheight + 1;
             return true;
         }
         BSTNode<Data>* ptr = root;
         BSTNode<Data>* prev_ptr = nullptr;
+
+        int edgeCount = 0;
         while (ptr != nullptr) {
             prev_ptr = ptr;
             // checking if the data is equal to items value
@@ -60,10 +64,12 @@ class BST {
             // if item is smaller than current node's data
             if (item < ptr->getData()) {
                 ptr = ptr->left;
+                edgeCount++;
             }
             // if item is larger than current node's data
             else {
                 ptr = ptr->right;
+                edgeCount++;
             }
         }
         if (!(item < prev_ptr->getData()) && !(prev_ptr->getData() < item)) {
@@ -71,8 +77,19 @@ class BST {
         }
         if (item < prev_ptr->getData()) {
             prev_ptr->left = item_ptr;
+            item_ptr->parent = prev_ptr;
+            isize = isize + 1;
+            if (iheight < edgeCount) {
+                iheight = edgeCount;
+            }
+
         } else {
             prev_ptr->right = item_ptr;
+            item_ptr->parent = prev_ptr;
+            isize = isize + 1;
+            if (iheight < edgeCount) {
+                iheight = edgeCount;
+            }
         }
         return true;
     }
@@ -102,13 +119,13 @@ class BST {
     bool deleteNode(const Data& item) { return false; }
 
     /** TODO */
-    unsigned int size() const { return 0; }
+    unsigned int size() const { return isize; }
 
     /** TODO */
-    int height() const { return 0; }
+    int height() const { return iheight; }
 
     /** TODO */
-    bool empty() const { return false; }
+    bool empty() const { return (isize == 0); }
 
     /** TODO */
     iterator begin() const { return 0; }
@@ -165,6 +182,23 @@ class BST {
     }
 
   private:
+    /*
+      // helper method to update height of tree by finding # of parents on a
+      given
+      // node
+      static int parentsNum(BSTNode<Data>* curr) {
+          cout << "curr val " << curr->getData() << endl;
+          BSTNode<Data>* parent_ptr = curr->parent;
+          int parent_count = 0;
+          while (parent_ptr != nullptr) {
+              cout << "we in parentnnum loop" << endl;
+              parent_ptr = curr->parent;
+              parent_count++;
+          }
+          return parent_count;
+      }
+      */
+
     /** TODO Helper function for begin() */
     static BSTNode<Data>* first(BSTNode<Data>* root) { return 0; }
 

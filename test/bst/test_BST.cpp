@@ -79,3 +79,16 @@ TEST_F(SmallBSTFixture, SMALL_INSERT_DUPLICATES_TEST2) {
 
 // Testing Find
 TEST_F(SmallBSTFixture, SMALL_FIND_TEST) { ASSERT_EQ(-33, *bst.find(-33)); }
+
+// Testing Height
+TEST_F(SmallBSTFixture, SMALL_HEIGHT_TEST) {
+    // assert that the small BST has the correct height
+    ASSERT_EQ(bst.height(), 2);
+}
+
+TEST_F(SmallBSTFixture, SMALL_HEIGHT_TEST2) {
+    // assert that the small BST has the correct height
+    bst.insert(5);
+    bst.insert(6);
+    ASSERT_EQ(bst.height(), 4);
+}
