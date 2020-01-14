@@ -44,18 +44,15 @@ class BST {
     /** TODO */
     bool insert(const Data& item) {
         BSTNode<Data>* item_ptr = new BSTNode<Data>(item);
-
         // if there is no root
         if (root == 0 || root == nullptr) {
             root = item_ptr;
             return true;
         }
         BSTNode<Data>* ptr = root;
-        BSTNode<Data>* next_ptr = nullptr;
-
+        BSTNode<Data>* prev_ptr = nullptr;
         while (ptr != nullptr) {
-            next_ptr = ptr;
-
+            prev_ptr = ptr;
             // checking if the data is equal to items value
             if (!(item < ptr->getData() && !(item < ptr->getData()))) {
                 return false;
@@ -69,19 +66,37 @@ class BST {
                 ptr = ptr->right;
             }
         }
-        if (item < next_ptr->getData() && !(item < next_ptr->getData())) {
+        if (item < prev_ptr->getData() && !(item < prev_ptr->getData())) {
             return false;
         }
-        if (item < next_ptr->getData()) {
-            next_ptr->left = item_ptr;
+        if (item < prev_ptr->getData()) {
+            prev_ptr->left = item_ptr;
         } else {
-            next_ptr->right = item_ptr;
+            prev_ptr->right = item_ptr;
         }
         return true;
     }
 
     /** TODO */
-    iterator find(const Data& item) const { return 0; }
+    iterator find(const Data& item) const {
+        BSTNode<Data>* find_ptr = root;
+        while (find_ptr != nullptr) {
+            // checking if the data is equal to items value
+            if (!(item < find_ptr->getData() &&
+                  !(item < find_ptr->getData()))) {
+                break;
+            }
+            // if item is smaller than current node's data
+            if (item < find_ptr->getData()) {
+                find_ptr = find_ptr->left;
+            }
+            // if item is larger than current node's data
+            else {
+                find_ptr = find_ptr->right;
+            }
+        }
+        return typename BST<Data>::iterator(find_ptr);
+    }
 
     /** TODO */
     bool deleteNode(const Data& item) { return false; }

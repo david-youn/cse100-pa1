@@ -30,7 +30,15 @@ class BSTNode {
     Data getData() { return data; }
 
     /** TODO */
-    BSTNode<Data>* successor() { return right; }
+    BSTNode<Data>* successor() {
+        if (right != nullptr) {
+            return right;
+        } else if (parent != nullptr) {
+            return parent;
+        } else {
+            return nullptr;
+        }
+    }
 };
 
 /**
