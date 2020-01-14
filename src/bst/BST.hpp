@@ -39,7 +39,12 @@ class BST {
     BST(const BST<Data>& bst) : root(0), isize(0), iheight(-1) {}
 
     /** TODO */
-    ~BST() {}
+    ~BST() {
+        isize = 0;
+        iheight = -1;
+        deleteAll(root);
+        root = nullptr;
+    }
 
     /** TODO */
     bool insert(const Data& item) {
@@ -128,7 +133,7 @@ class BST {
     bool empty() const { return (isize == 0); }
 
     /** TODO */
-    iterator begin() const { return 0; }
+    iterator begin() const { return typename BST<Data>::iterator(first(root)); }
 
     /** Return an iterator pointing past the last item in the BST. */
     iterator end() const { return typename BST<Data>::iterator(0); }
@@ -182,28 +187,28 @@ class BST {
     }
 
   private:
-    /*
-      // helper method to update height of tree by finding # of parents on a
-      given
-      // node
-      static int parentsNum(BSTNode<Data>* curr) {
-          cout << "curr val " << curr->getData() << endl;
-          BSTNode<Data>* parent_ptr = curr->parent;
-          int parent_count = 0;
-          while (parent_ptr != nullptr) {
-              cout << "we in parentnnum loop" << endl;
-              parent_ptr = curr->parent;
-              parent_count++;
-          }
-          return parent_count;
-      }
-      */
-
     /** TODO Helper function for begin() */
-    static BSTNode<Data>* first(BSTNode<Data>* root) { return 0; }
+    static BSTNode<Data>* first(BSTNode<Data>* root) {
+        BSTNode<Data>* first_ptr = root;
+        BSTNode<Data>* pre_ptr = nullptr;
+        while (first_ptr != nullptr) {
+            pre_ptr = first_ptr;
+            first_ptr = first_ptr->left;
+        }
+        return pre_ptr;
+    }
 
     /** TODO */
     static void deleteAll(BSTNode<Data>* n) {
+        if (n == nullptr) {
+            cout << "base case reached" << endl;
+            return;
+        }
+        deleteAll(n->left);
+        deleteAll(n->right);
+        cout << "deleting: " << n->getData() << endl;
+        delete (n);
+        n = nullptr;
         /* Pseudocode:
            if current node is null: return;
            recursively delete left sub-tree

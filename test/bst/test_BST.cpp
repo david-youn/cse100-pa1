@@ -92,3 +92,22 @@ TEST_F(SmallBSTFixture, SMALL_HEIGHT_TEST2) {
     bst.insert(6);
     ASSERT_EQ(bst.height(), 4);
 }
+
+// testing begin method
+TEST_F(SmallBSTFixture, SMALL_BEGIN_TEST) {
+    // assert that the small BST has the correct height
+    ASSERT_EQ(*bst.begin(), -33);
+}
+
+TEST_F(SmallBSTFixture, SMALL_BEGIN_TEST2) {
+    bst.insert(-81);
+    // assert that the small BST has the correct height
+    ASSERT_EQ(*bst.begin(), -81);
+}
+
+// testing destructor and empty method
+TEST_F(SmallBSTFixture, SMALL_DESTRUCT) {
+    bst.~BST();
+    // assert empty
+    ASSERT_TRUE(bst.empty());
+}
