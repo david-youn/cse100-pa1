@@ -31,11 +31,26 @@ class BSTNode {
 
     /** TODO */
     BSTNode<Data>* successor() {
+        // Referenced pseudocode from Stepik resource
+        BSTNode<Data>* current = nullptr;
+        // case 1: node has a right child
         if (right != nullptr) {
-            return right;
-        } else if (parent != nullptr) {
-            return parent;
-        } else {
+            current = right;
+            while (current->left != nullptr) {
+                current = current->left;
+            }
+            return current;
+        }
+        // case 2: node does not have a right child
+        else {
+            current = this;
+            while (current->parent != nullptr) {
+                if (current == current->parent->left) {
+                    return current->parent;
+                } else {
+                    current = current->parent;
+                }
+            }
             return nullptr;
         }
     }

@@ -43,7 +43,7 @@ class BST {
         isize = 0;
         iheight = -1;
         deleteAll(root);
-        root = nullptr;
+        root = 0;
     }
 
     /** TODO */
@@ -201,14 +201,11 @@ class BST {
     /** TODO */
     static void deleteAll(BSTNode<Data>* n) {
         if (n == nullptr) {
-            cout << "base case reached" << endl;
             return;
         }
         deleteAll(n->left);
         deleteAll(n->right);
-        cout << "deleting: " << n->getData() << endl;
         delete (n);
-        n = nullptr;
         /* Pseudocode:
            if current node is null: return;
            recursively delete left sub-tree
