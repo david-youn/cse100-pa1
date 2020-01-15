@@ -111,3 +111,12 @@ TEST_F(SmallBSTFixture, SMALL_DESTRUCT) {
     // assert empty
     ASSERT_TRUE(bst.empty());
 }
+
+// testing inorder method
+TEST_F(SmallBSTFixture, SMALL_INORDER) {
+    vector<int> vect{-33, 1, 3, 4, 100};
+    for (int x : bst.inorder()) {
+        cout << x << ", ";
+    }
+    ASSERT_EQ(bst.inorder(), vect);
+}

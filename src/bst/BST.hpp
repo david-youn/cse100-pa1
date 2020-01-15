@@ -139,7 +139,17 @@ class BST {
     iterator end() const { return typename BST<Data>::iterator(0); }
 
     /** TODO */
-    vector<Data> inorder() const {}
+    vector<Data> inorder() const {
+        std::vector<Data> ivector(isize);
+        BSTNode<Data>* curr = first(root);
+        Data* pos = ivector.data();
+        while (curr != nullptr) {
+            *pos = curr->getData();
+            pos++;
+            curr = inorderHelper(curr);
+        }
+        return ivector;
+    }
 
     /**
      * DO NOT CHANGE THIS METHOD
@@ -187,6 +197,32 @@ class BST {
     }
 
   private:
+    // Helper function for inorder()
+    static BSTNode<Data>* inorderHelper(BSTNode<Data>* inode) {
+        // Referenced pseudocode from Stepik resource
+        BSTNode<Data>* current = nullptr;
+        // case 1: node has a right child
+        if (inode->right != nullptr) {
+            current = inode->right;
+            while (current->left != nullptr) {
+                current = current->left;
+            }
+            return current;
+        }
+        // case 2: node does not have a right child
+        else {
+            current = inode;
+            while (current->parent != nullptr) {
+                if (current == current->parent->left) {
+                    return current->parent;
+                } else {
+                    current = current->parent;
+                }
+            }
+            return nullptr;
+        }
+    }
+
     /** TODO Helper function for begin() */
     static BSTNode<Data>* first(BSTNode<Data>* root) {
         BSTNode<Data>* first_ptr = root;
