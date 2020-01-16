@@ -102,19 +102,13 @@ class BST {
     /** TODO */
     iterator find(const Data& item) const {
         BSTNode<Data>* find_ptr = root;
-        while (find_ptr != nullptr) {
-            // checking if the data is equal to items value
-            if (!(item < find_ptr->getData() &&
-                  !(find_ptr->getData() < item))) {
-                break;
-            }
-            // if item is smaller than current node's data
+        while ((find_ptr != nullptr) && (find_ptr->getData() != item)) {
             if (item < find_ptr->getData()) {
                 find_ptr = find_ptr->left;
-            }
-            // if item is larger than current node's data
-            else {
+            } else if (find_ptr->getData() < item) {
                 find_ptr = find_ptr->right;
+            } else {
+                return typename BST<Data>::iterator(0);
             }
         }
         return typename BST<Data>::iterator(find_ptr);
