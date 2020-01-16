@@ -55,6 +55,7 @@ class BST {
             root = item_ptr;
             isize = isize + 1;
             iheight = iheight + 1;
+            delete (item_ptr);
             return true;
         }
         BSTNode<Data>* ptr = root;
@@ -65,6 +66,7 @@ class BST {
             prev_ptr = ptr;
             // checking if the data is equal to items value
             if (!(item < ptr->getData()) && !(ptr->getData() < item)) {
+                delete (item_ptr);
                 return false;
             }
             // if item is smaller than current node's data
@@ -79,6 +81,7 @@ class BST {
             }
         }
         if (!(item < prev_ptr->getData()) && !(prev_ptr->getData() < item)) {
+            delete (item_ptr);
             return false;
         }
         if (item < prev_ptr->getData()) {
@@ -97,6 +100,7 @@ class BST {
                 iheight = edgeCount;
             }
         }
+        delete (item_ptr);
         return true;
     }
 
@@ -145,8 +149,6 @@ class BST {
             pos++;
             curr = inorderHelper(curr);
         }
-        curr = nullptr;
-        delete (curr);
         return ivector;
     }
 
