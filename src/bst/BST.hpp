@@ -43,8 +43,8 @@ class BST {
         isize = 0;
         iheight = -1;
         deleteAll(root);
-        root = 0;
         delete (root);
+        root = 0;
     }
 
     /** TODO */
@@ -55,7 +55,6 @@ class BST {
             root = item_ptr;
             isize = isize + 1;
             iheight = iheight + 1;
-            delete (item_ptr);
             return true;
         }
         BSTNode<Data>* ptr = root;
@@ -66,7 +65,6 @@ class BST {
             prev_ptr = ptr;
             // checking if the data is equal to items value
             if (!(item < ptr->getData()) && !(ptr->getData() < item)) {
-                delete (item_ptr);
                 return false;
             }
             // if item is smaller than current node's data
@@ -81,7 +79,6 @@ class BST {
             }
         }
         if (!(item < prev_ptr->getData()) && !(prev_ptr->getData() < item)) {
-            delete (item_ptr);
             return false;
         }
         if (item < prev_ptr->getData()) {
@@ -100,7 +97,6 @@ class BST {
                 iheight = edgeCount;
             }
         }
-        delete (item_ptr);
         return true;
     }
 
@@ -115,7 +111,7 @@ class BST {
                 find_ptr = find_ptr->right;
             }
             if (find_ptr == nullptr) {
-                return typename BST<Data>::iterator(0);
+                return typename BST<Data>::iterator(find_ptr);
             }
         }
         return typename BST<Data>::iterator(find_ptr);
