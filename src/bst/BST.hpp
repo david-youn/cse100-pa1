@@ -44,6 +44,7 @@ class BST {
         iheight = -1;
         deleteAll(root);
         root = 0;
+        delete (root);
     }
 
     /** TODO */
