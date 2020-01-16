@@ -64,6 +64,7 @@ class BST {
             prev_ptr = ptr;
             // checking if the data is equal to items value
             if (!(item < ptr->getData()) && !(ptr->getData() < item)) {
+                delete (item_ptr);
                 return false;
             }
             // if item is smaller than current node's data
@@ -78,6 +79,7 @@ class BST {
             }
         }
         if (!(item < prev_ptr->getData()) && !(prev_ptr->getData() < item)) {
+            delete (item_ptr);
             return false;
         }
         if (item < prev_ptr->getData()) {
