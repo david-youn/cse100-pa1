@@ -1,2 +1,4 @@
-Invalid flag.
-Usage: ./main -p <input filename> <query filename>.
+Size of BST: 11640
+Height of BST: 32
+BST is empty: false
+Find results for query names: found, not found, not found, not found, not found
