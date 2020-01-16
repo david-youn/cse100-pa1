@@ -80,8 +80,6 @@ TEST_F(SmallBSTFixture, SMALL_INSERT_DUPLICATES_TEST2) {
 // Testing Find
 TEST_F(SmallBSTFixture, SMALL_FIND_TEST) { ASSERT_EQ(-33, *bst.find(-33)); }
 
-// TEST_F(SmallBSTFixture, SMALL_FIND_TEST2) { ASSERT_EQ(0, *bst.find(10)); }
-
 // Testing Height
 TEST_F(SmallBSTFixture, SMALL_HEIGHT_TEST) {
     // assert that the small BST has the correct height
