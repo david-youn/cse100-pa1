@@ -145,6 +145,8 @@ class BST {
             pos++;
             curr = inorderHelper(curr);
         }
+        curr = nullptr;
+        delete (curr);
         return ivector;
     }
 
@@ -238,6 +240,7 @@ class BST {
         }
         deleteAll(n->left);
         deleteAll(n->right);
+        n = nullptr;
         delete (n);
         /* Pseudocode:
            if current node is null: return;
