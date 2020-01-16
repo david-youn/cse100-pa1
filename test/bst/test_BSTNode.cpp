@@ -40,6 +40,11 @@ TEST(BST_NODE_TESTS, TEST_SUCCESSOR2) {
     ASSERT_EQ(n5->successor(), nullptr);
     ASSERT_EQ(n3->successor(), n5);
     ASSERT_EQ(n1->successor(), n3);
+    delete (n1);
+    delete (n2);
+    delete (n3);
+    delete (n4);
+    delete (n5);
 }
 
 TEST(BST_NODE_TESTS, TEST_SUCCESSOR3) {
@@ -69,6 +74,14 @@ TEST(BST_NODE_TESTS, TEST_SUCCESSOR3) {
     n7->left = n4;
     n4->parent = n7;
     ASSERT_EQ(n2->successor(), n4);
+
+    delete (n1);
+    delete (n2);
+    delete (n3);
+    delete (n4);
+    delete (n5);
+    delete (n6);
+    delete (n7);
 }
 
 TEST(BST_NODE_TESTS, TEST_SETDATA) {
@@ -78,12 +91,14 @@ TEST(BST_NODE_TESTS, TEST_SETDATA) {
     ASSERT_EQ(n1->getData(), 5);
     n1->setData(-10);
     ASSERT_EQ(n1->getData(), -10);
+    delete (n1);
 }
 
 TEST(BST_NODE_TESTS, TEST_GETDATA) {
     BSTNode<int>* n1 = new BSTNode<int>(3);
     int check = n1->getData();
     ASSERT_EQ(check, 3);
+    delete (n1);
 }
 
 TEST(BST_NODE_TESTS, TEST_CONSTRUCTOR2) {
@@ -104,4 +119,5 @@ TEST(BST_NODE_TESTS, TEST_CONSTRUCTOR3) {
     ASSERT_EQ(node.parent, nullptr);
     ASSERT_EQ(node.left, nullptr);
     ASSERT_EQ(node.right, nullptr);
+    delete (n1);
 }

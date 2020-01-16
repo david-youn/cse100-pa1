@@ -58,4 +58,10 @@ TEST(BST_ITERATOR_TEST, TEST_ITERATOR_INCREMENT2) {
     iter4++;
     BSTIterator<int> iter6(n1);
     ASSERT_TRUE(iter4 == iter6);
+
+    delete (n1);
+    delete (n2);
+    delete (n3);
+    delete (n4);
+    delete (n5);
 }

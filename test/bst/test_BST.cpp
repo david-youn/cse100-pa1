@@ -122,15 +122,17 @@ TEST_F(SmallBSTFixture, SMALL_BEGIN_TEST2) {
     ASSERT_EQ(*bst.begin(), -81);
 }
 
+// testing inorder method
+TEST_F(SmallBSTFixture, SMALL_INORDER) {
+    vector<int> vect{-33, 1, 3, 4, 100};
+    ASSERT_EQ(bst.inorder(), vect);
+}
+
 // testing destructor and empty method
 TEST_F(SmallBSTFixture, SMALL_DESTRUCT) {
     bst.~BST();
     // assert empty
     ASSERT_TRUE(bst.empty());
-}
-
-// testing inorder method
-TEST_F(SmallBSTFixture, SMALL_INORDER) {
-    vector<int> vect{-33, 1, 3, 4, 100};
-    ASSERT_EQ(bst.inorder(), vect);
+    ASSERT_EQ(bst.height(), -1);
+    ASSERT_EQ(bst.size(), 0);
 }

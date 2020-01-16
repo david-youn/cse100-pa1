@@ -43,7 +43,6 @@ class BST {
         isize = 0;
         iheight = -1;
         deleteAll(root);
-        delete (root);
         root = 0;
     }
 
@@ -238,8 +237,9 @@ class BST {
         }
         deleteAll(n->left);
         deleteAll(n->right);
-        n = nullptr;
         delete (n);
+        n = nullptr;
+
         /* Pseudocode:
            if current node is null: return;
            recursively delete left sub-tree
