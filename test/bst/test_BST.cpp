@@ -80,6 +80,23 @@ TEST_F(SmallBSTFixture, SMALL_INSERT_DUPLICATES_TEST2) {
 // Testing Find
 TEST_F(SmallBSTFixture, SMALL_FIND_TEST) { ASSERT_EQ(-33, *bst.find(-33)); }
 
+TEST_F(SmallBSTFixture, SMALL_FIND_TEST2) { ASSERT_EQ(100, *bst.find(100)); }
+
+TEST_F(SmallBSTFixture, SMALL_FIND_TEST3) { ASSERT_EQ(3, *bst.find(3)); }
+
+TEST_F(SmallBSTFixture, SMALL_FIND_TEST4) {
+    ASSERT_EQ(bst.end(), bst.find(1000));
+}
+
+TEST_F(SmallBSTFixture, SMALL_FIND_TEST5) {
+    ASSERT_EQ(bst.end(), bst.find(10));
+}
+
+TEST_F(SmallBSTFixture, SMALL_FIND_TEST6) {
+    BSTIterator<int> iter(nullptr);
+    ASSERT_EQ(iter, bst.find(10));
+}
+
 // Testing Height
 TEST_F(SmallBSTFixture, SMALL_HEIGHT_TEST) {
     // assert that the small BST has the correct height
@@ -115,8 +132,5 @@ TEST_F(SmallBSTFixture, SMALL_DESTRUCT) {
 // testing inorder method
 TEST_F(SmallBSTFixture, SMALL_INORDER) {
     vector<int> vect{-33, 1, 3, 4, 100};
-    for (int x : bst.inorder()) {
-        cout << x << ", ";
-    }
     ASSERT_EQ(bst.inorder(), vect);
 }

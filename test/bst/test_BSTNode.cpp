@@ -80,6 +80,12 @@ TEST(BST_NODE_TESTS, TEST_SETDATA) {
     ASSERT_EQ(n1->getData(), -10);
 }
 
+TEST(BST_NODE_TESTS, TEST_GETDATA) {
+    BSTNode<int>* n1 = new BSTNode<int>(3);
+    int check = n1->getData();
+    ASSERT_EQ(check, 3);
+}
+
 TEST(BST_NODE_TESTS, TEST_CONSTRUCTOR2) {
     BSTNode<int> node(0);
     ASSERT_EQ(node.getData(), 0);
