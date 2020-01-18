@@ -1,5 +1,8 @@
 /**
- * TODO: add file header
+ * Names: David Youn A15452585
+ *        Jonathun Yun A15431969
+ * Emails: dayoun@ucsd.edu
+ *         j3yun@ucsd.edu
  */
 #ifndef BSTNODE_HPP
 #define BSTNODE_HPP
