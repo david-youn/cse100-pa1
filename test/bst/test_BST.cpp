@@ -136,3 +136,36 @@ TEST_F(SmallBSTFixture, SMALL_DESTRUCT) {
     ASSERT_EQ(bst.height(), -1);
     ASSERT_EQ(bst.size(), 0);
 }
+
+// testing small balanced bst
+TEST_F(SmallBSTFixture, SMALL_BALANCE) {
+    bst.insert(2);
+    bst.insert(1000);
+    bst.insert(5);
+    bst.insert(-50);
+    BST<int>* bst2 = new BST<int>(bst);
+    ASSERT_FALSE(bst.empty());
+    ASSERT_EQ(bst2->size(), 9);
+    ASSERT_EQ(bst2->height(), 3);
+    ASSERT_EQ(*(bst2->begin()), -50);
+}
+
+TEST_F(SmallBSTFixture, SMALL_BALANCE2) {
+    bst.insert(2);
+    bst.insert(5);
+    BST<int>* bst2 = new BST<int>(bst);
+    ASSERT_FALSE(bst.empty());
+    ASSERT_EQ(bst2->size(), 7);
+    ASSERT_EQ(bst2->height(), 2);
+    ASSERT_EQ(*(bst2->begin()), -33);
+}
+TEST_F(SmallBSTFixture, SMALL_BALANCE3) {
+    bst.insert(2);
+    bst.insert(5);
+    bst.insert(-34);
+    BST<int>* bst2 = new BST<int>(bst);
+    ASSERT_FALSE(bst.empty());
+    ASSERT_EQ(bst2->size(), 8);
+    ASSERT_EQ(bst2->height(), 3);
+    ASSERT_EQ(*(bst2->begin()), -34);
+}

@@ -38,7 +38,7 @@ class BST {
     /** TODO */
     BST(const BST<Data>& bst) : root(0), isize(0), iheight(-1) {
         vector<Data> vect = bst.inorder();
-        root = buildSubtree(vect, 0, bst.size(), 0);
+        root = buildSubtree(vect, 0, vect.size() - 1, -1);
         isize = bst.size();
     }
 
@@ -257,16 +257,20 @@ class BST {
     /** TODO */
     BSTNode<Data>* buildSubtree(vector<Data>& data, int start, int end,
                                 int depth) {
-        if (start >= end) {
+        if (start > end) {
             return nullptr;
         }
+
         // depth used to be new iheight value
         int median = ((end - start + 1) / 2) + start;
         BSTNode<Data>* node = new BSTNode<Data>(data.at(median));
-        node->left = buildSubtree(data, start, median - 1, depth);
-        node->right = buildSubtree(data, median - 1, end, depth + 1);
 
-        iheight = depth;
+        depth = depth + 1;
+        if (depth > iheight) {
+            iheight = depth;
+        }
+        node->left = buildSubtree(data, start, median - 1, depth);
+        node->right = buildSubtree(data, median + 1, end, depth);
         return node;
     }
 
