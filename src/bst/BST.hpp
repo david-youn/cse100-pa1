@@ -145,13 +145,13 @@ class BST {
         // checking if deleting a root node with no children
         if (delete_ptr->parent == nullptr && delete_ptr->left == nullptr &&
             delete_ptr->right == nullptr) {
+            cout << " root w no children" << endl;
             delete (delete_ptr);
             root = nullptr;
             isize = 0;
             iheight = -1;
             return true;
         }
-        cout << "Deleting2: " << delete_ptr->getData() << endl;
 
         // check if the node has no children
         if (delete_ptr->left == nullptr && delete_ptr->right == nullptr) {
@@ -173,8 +173,10 @@ class BST {
         // check if node has two children
         else if (delete_ptr->left != nullptr && delete_ptr->right != nullptr) {
             cout << "entered with: " << delete_ptr->getData() << endl;
-            Data temp = (delete_ptr->successor())->getData();
-            deleteNode(delete_ptr->successor()->getData());
+            Data temp = (delete_ptr->successor()->getData());
+            cout << "temp: " << temp << endl;
+            deleteNode(temp);
+            cout << "here" << endl;
             delete_ptr->setData(temp);
             isize--;
             iheight = findHeight(root) - 1;
@@ -187,32 +189,30 @@ class BST {
             BSTNode<Data>* child_ptr;
             BSTNode<Data>* parent_ptr = delete_ptr->parent;
             // check if node has left child
-            if (delete_ptr->left != nullptr) {
-                cout << "hoya" << endl;
-                child_ptr = delete_ptr->left;
-                child_ptr->parent = parent_ptr;
-                parent_ptr->right = child_ptr;
-                cout << "duah" << endl;
-                // delete_ptr = 0;
-                delete (delete_ptr);
-                cout << "??" << endl;
-                isize--;
-                cout << "heee" << endl;
-                iheight = findHeight(root) - 1;
-                cout << "alm" << endl;
-                return true;
-            } else {
-                cout << "heee" << endl;
-                child_ptr = delete_ptr->right;
+            if (delete_ptr->parent->left == delete_ptr) {
+                if (delete_ptr->left != nullptr) {
+                    child_ptr = delete_ptr->left;
+                } else {
+                    child_ptr = delete_ptr->right;
+                }
                 child_ptr->parent = parent_ptr;
                 parent_ptr->left = child_ptr;
-                // delete_ptr = 0;
-                delete (delete_ptr);
-                isize--;
-                iheight = findHeight(root) - 1;
-
-                return true;
             }
+
+            else {
+                if (delete_ptr->left != nullptr) {
+                    child_ptr = delete_ptr->left;
+                } else {
+                    child_ptr = delete_ptr->right;
+                }
+                child_ptr->parent = parent_ptr;
+                parent_ptr->right = child_ptr;
+            }
+            // delete_ptr = 0;
+            delete (delete_ptr);
+            isize--;
+            iheight = findHeight(root) - 1;
+            return true;
         }
     }
 
@@ -371,8 +371,6 @@ class BST {
         } else {
             int leftHeight = 1 + findHeight(node->left);
             int rightHeight = 1 + findHeight(node->right);
-
-            cout << "rh: " << rightHeight << " lh: " << leftHeight << endl;
             if (leftHeight > rightHeight) {
                 return leftHeight;
             } else {
