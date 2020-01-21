@@ -2,6 +2,9 @@
     "editor.formatOnSave": true,
     "gitlens.blame.compact": false,
     "files.associations": {
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "new": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp"
     }
 }

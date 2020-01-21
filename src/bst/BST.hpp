@@ -123,7 +123,53 @@ class BST {
     }
 
     /** TODO */
-    bool deleteNode(const Data& item) { return false; }
+    bool deleteNode(const Data& item) {
+        BSTNode<Data>* delete_ptr = root;
+        while (!(!(delete_ptr->getData() < item) &&
+                 !(item < delete_ptr->getData()))) {
+            if (item < delete_ptr->getData()) {
+                delete_ptr = delete_ptr->left;
+            } else if (delete_ptr->getData() < item) {
+                delete_ptr = delete_ptr->right;
+            }
+            if (delete_ptr == nullptr) {
+                return false;
+            }
+        }
+        // check if the node has no children
+        if (delete_ptr->left == nullptr && delete_ptr->right == nullptr) {
+            delete_ptr->parent->left = nullptr;
+            delete_ptr->parent->right = nullptr;
+            delete (delete_ptr);
+            return true;
+        }
+        // check if node has two children
+        else if (delete_ptr->left != nullptr && delete_ptr->right != nullptr) {
+            Data temp = (delete_ptr->successor())->getData();
+            deleteNode(delete_ptr->successor()->getData());
+            delete_ptr->setData(temp);
+            return true;
+        }
+        // otherwise node has one child
+        else {
+            BSTNode<Data>* child_ptr;
+            BSTNode<Data>* parent_ptr = delete_ptr->parent;
+            // check if node has left child
+            if (delete_ptr->left != nullptr) {
+                child_ptr = delete_ptr->left;
+                child_ptr->parent = parent_ptr;
+                parent_ptr->left = child_ptr;
+                delete (delete_ptr);
+                return true;
+            } else {
+                child_ptr = delete_ptr->right;
+                child_ptr->parent = parent_ptr;
+                parent_ptr->right = child_ptr;
+                delete (delete_ptr);
+                return true;
+            }
+        }
+    }
 
     /** TODO */
     unsigned int size() const { return isize; }
@@ -260,7 +306,6 @@ class BST {
         if (start > end) {
             return nullptr;
         }
-
         // depth used to be new iheight value
         int median = ((end - start + 1) / 2) + start;
         BSTNode<Data>* node = new BSTNode<Data>(data.at(median));

@@ -148,6 +148,7 @@ TEST_F(SmallBSTFixture, SMALL_BALANCE) {
     ASSERT_EQ(bst2->size(), 9);
     ASSERT_EQ(bst2->height(), 3);
     ASSERT_EQ(*(bst2->begin()), -50);
+    bst2->~BST();
 }
 
 TEST_F(SmallBSTFixture, SMALL_BALANCE2) {
@@ -158,7 +159,9 @@ TEST_F(SmallBSTFixture, SMALL_BALANCE2) {
     ASSERT_EQ(bst2->size(), 7);
     ASSERT_EQ(bst2->height(), 2);
     ASSERT_EQ(*(bst2->begin()), -33);
+    bst2->~BST();
 }
+
 TEST_F(SmallBSTFixture, SMALL_BALANCE3) {
     bst.insert(2);
     bst.insert(5);
@@ -168,4 +171,39 @@ TEST_F(SmallBSTFixture, SMALL_BALANCE3) {
     ASSERT_EQ(bst2->size(), 8);
     ASSERT_EQ(bst2->height(), 3);
     ASSERT_EQ(*(bst2->begin()), -34);
+    bst2->~BST();
+}
+
+// testing deleteNode for existing nodes
+TEST_F(SmallBSTFixture, SMALL_DELETE) {
+    ASSERT_TRUE(bst.deleteNode(-33));
+    //  ASSERT_EQ(bst.height(), 2);
+}
+
+// testing deleteNode for non existent nodes
+TEST_F(SmallBSTFixture, SMALL_DELETE2) {
+    ASSERT_FALSE(bst.deleteNode(13));
+    ASSERT_FALSE(bst.deleteNode(36));
+    // ASSERT_EQ(bst.height(), 2);
+}
+
+// testing deleteNode for the root
+TEST_F(SmallBSTFixture, SMALL_DELETE3) {
+    ASSERT_TRUE(bst.deleteNode(3));
+    ASSERT_TRUE(bst.deleteNode(-33));
+    // ASSERT_EQ(bst.height(), 4);
+}
+
+// testing deleteNode for nodes with one child
+TEST_F(SmallBSTFixture, SMALL_DELETE4) {
+    ASSERT_TRUE(bst.deleteNode(4));
+    ASSERT_TRUE(bst.deleteNode(1));
+    // ASSERT_EQ(bst.height(), 4);
+}
+
+// testing deleteNode for an inserted node
+TEST_F(SmallBSTFixture, SMALL_DELETE5) {
+    bst.insert(2);
+    ASSERT_TRUE(bst.deleteNode(2));
+    // ASSERT_EQ(bst.height(), 4);
 }
