@@ -140,6 +140,17 @@ class BST {
                 return false;
             }
         }
+        // checking if deleting a root node with no children
+        if (delete_ptr->parent == nullptr && delete_ptr->left == nullptr &&
+            delete_ptr->right == nullptr) {
+            cout << "root: " << delete_ptr->getData() << endl;
+            delete (delete_ptr);
+            // delete_ptr = nullptr;
+            isize--;
+            iheight = -1;
+            return true;
+        }
+
         // check if the node has no children
         if (delete_ptr->left == nullptr && delete_ptr->right == nullptr) {
             if (!(delete_ptr->parent->left->getData() < item) &&
@@ -149,6 +160,8 @@ class BST {
                 delete_ptr->parent->right = nullptr;
             }
             delete (delete_ptr);
+            isize--;
+            iheight = findHeight(root) - 1;
             return true;
         }
         // check if node has two children
@@ -156,6 +169,9 @@ class BST {
             Data temp = (delete_ptr->successor())->getData();
             deleteNode(delete_ptr->successor()->getData());
             delete_ptr->setData(temp);
+            isize--;
+            iheight = findHeight(root) - 1;
+
             return true;
         }
         // otherwise node has one child
@@ -168,12 +184,18 @@ class BST {
                 child_ptr->parent = parent_ptr;
                 parent_ptr->left = child_ptr;
                 delete (delete_ptr);
+                isize--;
+                iheight = findHeight(root) - 1;
+
                 return true;
             } else {
                 child_ptr = delete_ptr->right;
                 child_ptr->parent = parent_ptr;
                 parent_ptr->right = child_ptr;
                 delete (delete_ptr);
+                isize--;
+                iheight = findHeight(root) - 1;
+
                 return true;
             }
         }
@@ -328,6 +350,20 @@ class BST {
     }
 
     // Add more helper functions below
+    int findHeight(BSTNode<Data>* node) {
+        if (node == nullptr) {
+            return 0;
+        } else {
+            int leftHeight = 1 + findHeight(node->left);
+            int rightHeight = 1 + findHeight(node->right);
+
+            if (leftHeight > rightHeight) {
+                return leftHeight;
+            } else {
+                return rightHeight;
+            }
+        }
+    }
 };
 
 #endif  // BST_HPP

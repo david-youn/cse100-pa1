@@ -149,6 +149,7 @@ TEST_F(SmallBSTFixture, SMALL_BALANCE) {
     ASSERT_EQ(bst2->height(), 3);
     ASSERT_EQ(*(bst2->begin()), -50);
     bst2->~BST();
+    delete (bst2);
 }
 
 TEST_F(SmallBSTFixture, SMALL_BALANCE2) {
@@ -160,6 +161,7 @@ TEST_F(SmallBSTFixture, SMALL_BALANCE2) {
     ASSERT_EQ(bst2->height(), 2);
     ASSERT_EQ(*(bst2->begin()), -33);
     bst2->~BST();
+    delete (bst2);
 }
 
 TEST_F(SmallBSTFixture, SMALL_BALANCE3) {
@@ -172,40 +174,41 @@ TEST_F(SmallBSTFixture, SMALL_BALANCE3) {
     ASSERT_EQ(bst2->height(), 3);
     ASSERT_EQ(*(bst2->begin()), -34);
     bst2->~BST();
+    delete (bst2);
 }
 
 // testing deleteNode for existing nodes
 TEST_F(SmallBSTFixture, SMALL_DELETE) {
     ASSERT_TRUE(bst.deleteNode(-33));
-    //  ASSERT_EQ(bst.height(), 2);
+    ASSERT_EQ(bst.height(), 2);
 }
 
 // testing deleteNode for non existent nodes
 TEST_F(SmallBSTFixture, SMALL_DELETE2) {
     ASSERT_FALSE(bst.deleteNode(13));
     ASSERT_FALSE(bst.deleteNode(36));
-    // ASSERT_EQ(bst.height(), 2);
+    ASSERT_EQ(bst.height(), 2);
 }
 
 // testing deleteNode for the root
 TEST_F(SmallBSTFixture, SMALL_DELETE3) {
     ASSERT_TRUE(bst.deleteNode(3));
     ASSERT_TRUE(bst.deleteNode(-33));
-    // ASSERT_EQ(bst.height(), 4);
+    ASSERT_EQ(bst.height(), 1);
 }
 
 // testing deleteNode for nodes with one child
 TEST_F(SmallBSTFixture, SMALL_DELETE4) {
     ASSERT_TRUE(bst.deleteNode(4));
     ASSERT_TRUE(bst.deleteNode(1));
-    // ASSERT_EQ(bst.height(), 4);
+    ASSERT_EQ(bst.height(), 1);
 }
 
 // testing deleteNode for an inserted node
 TEST_F(SmallBSTFixture, SMALL_DELETE5) {
     bst.insert(2);
     ASSERT_TRUE(bst.deleteNode(2));
-    // ASSERT_EQ(bst.height(), 4);
+    ASSERT_EQ(bst.height(), 2);
 }
 
 TEST_F(SmallBSTFixture, SMALL_DELETE6) {
@@ -215,4 +218,17 @@ TEST_F(SmallBSTFixture, SMALL_DELETE6) {
     ASSERT_EQ(100, *bst.find(100));
     ASSERT_EQ(-33, *bst.find(-33));
     ASSERT_EQ(4, *bst.find(4));
+}
+
+TEST_F(SmallBSTFixture, SMALL_DELETE7) {
+    bst.~BST();
+    bst.insert(3);
+    ASSERT_TRUE(bst.deleteNode(3));
+}
+
+// finding in an empty bst
+TEST_F(SmallBSTFixture, SMALL_EMPTYBST_FIND) {
+    bst.~BST();
+    BSTIterator<int> iter(nullptr);
+    ASSERT_EQ(iter, bst.find(3));
 }
