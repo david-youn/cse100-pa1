@@ -207,3 +207,12 @@ TEST_F(SmallBSTFixture, SMALL_DELETE5) {
     ASSERT_TRUE(bst.deleteNode(2));
     // ASSERT_EQ(bst.height(), 4);
 }
+
+TEST_F(SmallBSTFixture, SMALL_DELETE6) {
+    bst.insert(2);
+    ASSERT_TRUE(bst.deleteNode(1));
+    ASSERT_EQ(3, *bst.find(3));
+    ASSERT_EQ(100, *bst.find(100));
+    ASSERT_EQ(-33, *bst.find(-33));
+    ASSERT_EQ(4, *bst.find(4));
+}

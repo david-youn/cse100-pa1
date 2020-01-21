@@ -108,6 +108,9 @@ class BST {
     /** TODO */
     iterator find(const Data& item) const {
         BSTNode<Data>* find_ptr = root;
+        if (isize == 0) {
+            return typename BST<Data>::iterator(find_ptr);
+        }
         while (
             !(!(find_ptr->getData() < item) && !(item < find_ptr->getData()))) {
             if (item < find_ptr->getData()) {
@@ -125,6 +128,7 @@ class BST {
     /** TODO */
     bool deleteNode(const Data& item) {
         BSTNode<Data>* delete_ptr = root;
+        // finding the pointer with the data item
         while (!(!(delete_ptr->getData() < item) &&
                  !(item < delete_ptr->getData()))) {
             if (item < delete_ptr->getData()) {
@@ -138,8 +142,12 @@ class BST {
         }
         // check if the node has no children
         if (delete_ptr->left == nullptr && delete_ptr->right == nullptr) {
-            delete_ptr->parent->left = nullptr;
-            delete_ptr->parent->right = nullptr;
+            if (!(delete_ptr->parent->left->getData() < item) &&
+                !(item < delete_ptr->parent->left->getData())) {
+                delete_ptr->parent->left = nullptr;
+            } else {
+                delete_ptr->parent->right = nullptr;
+            }
             delete (delete_ptr);
             return true;
         }
