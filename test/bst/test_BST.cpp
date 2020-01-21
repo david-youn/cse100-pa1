@@ -226,6 +226,15 @@ TEST_F(SmallBSTFixture, SMALL_DELETE7) {
     ASSERT_TRUE(bst.deleteNode(3));
 }
 
+TEST_F(SmallBSTFixture, SMALL_DELETE8) {
+    cout << "from here" << endl;
+    bst.insert(5);
+    cout << "made here" << endl;
+    ASSERT_TRUE(bst.deleteNode(100));
+    cout << "got here" << endl;
+    ASSERT_TRUE(bst.deleteNode(5));
+}
+
 // finding in an empty bst
 TEST_F(SmallBSTFixture, SMALL_EMPTYBST_FIND) {
     bst.~BST();

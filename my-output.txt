@@ -19,3 +19,6 @@ Printing BST Structure
 1	5	
 Height: 1
 Size: 3
+Delete: Successfully deleted value 5
+Printing BST Structure
+(Empty tree)
