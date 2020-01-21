@@ -140,13 +140,14 @@ class BST {
                 return false;
             }
         }
+
         // checking if deleting a root node with no children
         if (delete_ptr->parent == nullptr && delete_ptr->left == nullptr &&
             delete_ptr->right == nullptr) {
             cout << "root: " << delete_ptr->getData() << endl;
             delete (delete_ptr);
-            // delete_ptr = nullptr;
-            isize--;
+            root = nullptr;
+            isize = 0;
             iheight = -1;
             return true;
         }
