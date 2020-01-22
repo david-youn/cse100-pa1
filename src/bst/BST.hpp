@@ -140,12 +140,10 @@ class BST {
                 return false;
             }
         }
-        cout << "Deleting: " << delete_ptr->getData() << endl;
 
         // checking if deleting a root node with no children
         if (delete_ptr->parent == nullptr && delete_ptr->left == nullptr &&
             delete_ptr->right == nullptr) {
-            cout << " root w no children" << endl;
             delete (delete_ptr);
             root = nullptr;
             isize = 0;
@@ -155,14 +153,14 @@ class BST {
 
         // check if the node has no children
         if (delete_ptr->left == nullptr && delete_ptr->right == nullptr) {
-            cout << "no children" << endl;
-            cout << "parent: " << delete_ptr->parent->getData() << endl;
-
-            if (delete_ptr->parent->left != nullptr) {
-                cout << "delete left child: " << delete_ptr->getData() << endl;
+            if (delete_ptr->parent->left == nullptr) {
+                delete_ptr->parent->right = nullptr;
+            } else if (delete_ptr->parent->right == nullptr) {
+                delete_ptr->parent->left = nullptr;
+            } else if (!(delete_ptr->parent->left->getData() < item) &&
+                       !(item < delete_ptr->parent->left->getData())) {
                 delete_ptr->parent->left = nullptr;
             } else {
-                cout << "delete right child: " << delete_ptr->getData() << endl;
                 delete_ptr->parent->right = nullptr;
             }
             delete (delete_ptr);
@@ -172,23 +170,17 @@ class BST {
         }
         // check if node has two children
         else if (delete_ptr->left != nullptr && delete_ptr->right != nullptr) {
-            cout << "entered with: " << delete_ptr->getData() << endl;
             Data temp = (delete_ptr->successor()->getData());
-            cout << "temp: " << temp << endl;
             deleteNode(temp);
-            cout << "here" << endl;
             delete_ptr->setData(temp);
             isize--;
             iheight = findHeight(root) - 1;
-
             return true;
         }
         // otherwise node has one child
         else {
-            cout << "one child" << endl;
             BSTNode<Data>* child_ptr;
             BSTNode<Data>* parent_ptr = delete_ptr->parent;
-            // check if node has left child
             if (delete_ptr->parent->left == delete_ptr) {
                 if (delete_ptr->left != nullptr) {
                     child_ptr = delete_ptr->left;
@@ -197,9 +189,7 @@ class BST {
                 }
                 child_ptr->parent = parent_ptr;
                 parent_ptr->left = child_ptr;
-            }
-
-            else {
+            } else {
                 if (delete_ptr->left != nullptr) {
                     child_ptr = delete_ptr->left;
                 } else {
@@ -208,7 +198,6 @@ class BST {
                 child_ptr->parent = parent_ptr;
                 parent_ptr->right = child_ptr;
             }
-            // delete_ptr = 0;
             delete (delete_ptr);
             isize--;
             iheight = findHeight(root) - 1;

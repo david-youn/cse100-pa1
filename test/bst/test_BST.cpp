@@ -227,11 +227,8 @@ TEST_F(SmallBSTFixture, SMALL_DELETE7) {
 }
 
 TEST_F(SmallBSTFixture, SMALL_DELETE8) {
-    cout << "from here" << endl;
     bst.insert(5);
-    cout << "made here" << endl;
     ASSERT_TRUE(bst.deleteNode(100));
-    cout << "got here" << endl;
     ASSERT_TRUE(bst.deleteNode(5));
 }
 
