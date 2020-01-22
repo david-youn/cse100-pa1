@@ -127,6 +127,10 @@ class BST {
 
     /** TODO */
     bool deleteNode(const Data& item) {
+        // empty bst
+        if (isize == 0) {
+            return false;
+        }
         BSTNode<Data>* delete_ptr = root;
         // finding the pointer with the data item
         while (!(!(delete_ptr->getData() < item) &&
@@ -140,7 +144,6 @@ class BST {
                 return false;
             }
         }
-
         // checking if deleting a root node with no children
         if (delete_ptr->parent == nullptr && delete_ptr->left == nullptr &&
             delete_ptr->right == nullptr) {
@@ -150,7 +153,6 @@ class BST {
             iheight = -1;
             return true;
         }
-
         // check if the node has no children
         if (delete_ptr->left == nullptr && delete_ptr->right == nullptr) {
             if (delete_ptr->parent->left == nullptr) {
@@ -173,7 +175,7 @@ class BST {
             Data temp = (delete_ptr->successor()->getData());
             deleteNode(temp);
             delete_ptr->setData(temp);
-            isize--;
+            // isize--; because isize gets updated in deleteNode(temp)
             iheight = findHeight(root) - 1;
             return true;
         }
@@ -184,8 +186,10 @@ class BST {
             if (parent_ptr == nullptr) {
                 if (delete_ptr->left == nullptr) {
                     root = delete_ptr->right;
+                    root->parent = nullptr;
                 } else {
                     root = delete_ptr->left;
+                    root->parent = nullptr;
                 }
             } else if (delete_ptr->parent->left == delete_ptr) {
                 if (delete_ptr->left != nullptr) {

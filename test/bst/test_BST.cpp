@@ -177,6 +177,16 @@ TEST_F(SmallBSTFixture, SMALL_BALANCE3) {
     delete (bst2);
 }
 
+TEST_F(SmallBSTFixture, SMALL_BALANCE4) {
+    bst.~BST();
+    BST<int>* bst2 = new BST<int>(bst);
+    ASSERT_TRUE(bst.empty());
+    ASSERT_EQ(bst2->size(), 0);
+    ASSERT_EQ(bst2->height(), -1);
+    bst2->~BST();
+    delete (bst2);
+}
+
 // testing deleteNode for existing nodes
 TEST_F(SmallBSTFixture, SMALL_DELETE) {
     ASSERT_TRUE(bst.deleteNode(-33));
@@ -233,13 +243,75 @@ TEST_F(SmallBSTFixture, SMALL_DELETE8) {
 }
 
 TEST_F(SmallBSTFixture, SMALL_DELETE9) {
-    bst.~BST();
     bst.insert(3);
     bst.insert(5);
     ASSERT_TRUE(bst.deleteNode(3));
+    ASSERT_TRUE(bst.deleteNode(1));
+    ASSERT_TRUE(bst.deleteNode(4));
+    ASSERT_TRUE(bst.deleteNode(100));
+    ASSERT_TRUE(bst.deleteNode(-33));
+    ASSERT_TRUE(bst.deleteNode(5));
+    ASSERT_TRUE(bst.empty());
 }
 
-// finding in an empty bst
+TEST_F(SmallBSTFixture, SMALL_DELETE10) {
+    bst.~BST();
+    bst.insert(3);
+    bst.insert(5);
+    bst.insert(6);
+    bst.insert(1);
+    BST<int>* bst2 = new BST<int>(bst);
+    ASSERT_TRUE(bst2->deleteNode(5));
+    BST<int>* bst3 = new BST<int>(*bst2);
+    ASSERT_TRUE(bst3->deleteNode(6));
+    ASSERT_FALSE(bst3->empty());
+    bst3->~BST();
+    delete (bst3);
+    bst2->~BST();
+    delete (bst2);
+}
+
+TEST_F(SmallBSTFixture, SMALL_DELETE11) {
+    bst.~BST();
+    ASSERT_FALSE(bst.deleteNode(3));
+    ASSERT_FALSE(bst.deleteNode(5));
+}
+
+TEST_F(SmallBSTFixture, SMALL_DELETE12) {
+    ASSERT_TRUE(bst.deleteNode(100));
+    ASSERT_TRUE(bst.deleteNode(4));
+    bst.insert(10);
+    bst.insert(6);
+    ASSERT_TRUE(bst.deleteNode(6));
+    ASSERT_TRUE(bst.deleteNode(10));
+    bst.insert(10);
+    bst.insert(6);
+    ASSERT_TRUE(bst.deleteNode(10));
+    ASSERT_TRUE(bst.deleteNode(6));
+    bst.insert(10);
+    bst.insert(20);
+    ASSERT_TRUE(bst.deleteNode(10));
+    ASSERT_TRUE(bst.deleteNode(20));
+    bst.insert(2);
+    ASSERT_TRUE(bst.deleteNode(1));
+    ASSERT_TRUE(bst.deleteNode(-33));
+    bst.insert(4);
+    bst.insert(-33);
+    ASSERT_TRUE(bst.deleteNode(2));
+    ASSERT_TRUE(bst.deleteNode(-33));
+    bst.insert(1);
+    bst.insert(-33);
+    ASSERT_TRUE(bst.deleteNode(-33));
+    ASSERT_TRUE(bst.deleteNode(1));
+    bst.insert(1);
+    bst.insert(2);
+    ASSERT_TRUE(bst.deleteNode(2));
+    ASSERT_TRUE(bst.deleteNode(1));
+    ostream* out = &cout;
+    bst.print(out);
+}
+
+// find in an empty bst
 TEST_F(SmallBSTFixture, SMALL_EMPTYBST_FIND) {
     bst.~BST();
     BSTIterator<int> iter(nullptr);
