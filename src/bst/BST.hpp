@@ -349,7 +349,14 @@ class BST {
             iheight = depth;
         }
         node->left = buildSubtree(data, start, median - 1, depth);
+        if (node->left != nullptr) {
+            node->left->parent = node;
+        }
+
         node->right = buildSubtree(data, median + 1, end, depth);
+        if(node->right != nullptr) {
+            node->right->parent = node;
+        }
         return node;
     }
 
