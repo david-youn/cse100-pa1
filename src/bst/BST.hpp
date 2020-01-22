@@ -181,7 +181,13 @@ class BST {
         else {
             BSTNode<Data>* child_ptr;
             BSTNode<Data>* parent_ptr = delete_ptr->parent;
-            if (delete_ptr->parent->left == delete_ptr) {
+            if (parent_ptr == nullptr) {
+                if (delete_ptr->left == nullptr) {
+                    root = delete_ptr->right;
+                } else {
+                    root = delete_ptr->left;
+                }
+            } else if (delete_ptr->parent->left == delete_ptr) {
                 if (delete_ptr->left != nullptr) {
                     child_ptr = delete_ptr->left;
                 } else {
@@ -352,9 +358,8 @@ class BST {
         if (node->left != nullptr) {
             node->left->parent = node;
         }
-
         node->right = buildSubtree(data, median + 1, end, depth);
-        if(node->right != nullptr) {
+        if (node->right != nullptr) {
             node->right->parent = node;
         }
         return node;

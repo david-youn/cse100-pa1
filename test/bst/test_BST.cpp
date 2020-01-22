@@ -232,6 +232,13 @@ TEST_F(SmallBSTFixture, SMALL_DELETE8) {
     ASSERT_TRUE(bst.deleteNode(5));
 }
 
+TEST_F(SmallBSTFixture, SMALL_DELETE9) {
+    bst.~BST();
+    bst.insert(3);
+    bst.insert(5);
+    ASSERT_TRUE(bst.deleteNode(3));
+}
+
 // finding in an empty bst
 TEST_F(SmallBSTFixture, SMALL_EMPTYBST_FIND) {
     bst.~BST();
