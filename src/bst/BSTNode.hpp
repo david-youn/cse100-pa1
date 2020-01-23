@@ -3,6 +3,11 @@
  *        Jonathun Yun A15431969
  * Emails: dayoun@ucsd.edu
  *         j3yun@ucsd.edu
+ * Sources: Stepik textbook
+ *
+ * This file contains the class and therefore the properties for a single node
+ * within the Binary Search Tree. This file is used in conjunction with the
+ * other two files BST.hpp and BSTIterator.hpp.
  */
 #ifndef BSTNODE_HPP
 #define BSTNODE_HPP
@@ -11,7 +16,9 @@
 using namespace std;
 
 /**
- * TODO: add class header
+ * This class contains the functions and variables used to create the object
+ * BSTNode. It contains the instance variables left, right, and parent as
+ * well as data in order to define the object.
  */
 template <typename Data>
 class BSTNode {
@@ -23,7 +30,10 @@ class BSTNode {
     BSTNode<Data>* right;
     BSTNode<Data>* parent;
 
-    /** TODO */
+    /**
+     * Default constructor for a Node
+     * Parameter(s): d - the Data that the node contains
+     */
     BSTNode(const Data& d) : data(d) { left = right = parent = nullptr; }
 
     /** Set the value of data */
@@ -32,21 +42,25 @@ class BSTNode {
     /** Get the value of data */
     Data getData() { return data; }
 
-    /** TODO */
+    /**
+     * Returns the next lowest greater number than the current node
+     * Parameter(s): none
+     */
     BSTNode<Data>* successor() {
         // Referenced pseudocode from Stepik resource
         BSTNode<Data>* current = nullptr;
-        // case 1: node has a right child
+        // if node has a right child
         if (right != nullptr) {
             current = right;
+            // iterate down the left until smallest node is found
             while (current->left != nullptr) {
                 current = current->left;
             }
             return current;
-        }
-        // case 2: node does not have a right child
-        else {
+            // if node does not have a right child
+        } else {
             current = this;
+            // traverse up the tree until parent's left is found
             while (current->parent != nullptr) {
                 if (current == current->parent->left) {
                     return current->parent;
@@ -54,6 +68,7 @@ class BSTNode {
                     current = current->parent;
                 }
             }
+            // if there was no successor
             return nullptr;
         }
     }
